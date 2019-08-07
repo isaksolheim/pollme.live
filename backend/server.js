@@ -17,6 +17,10 @@ connection.once('open', () => {
   console.log("MongoDB databsae connection established successfully");
 });
 
+const pollsRouter = require('./routes/polls');
+
+app.use('/', pollsRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
