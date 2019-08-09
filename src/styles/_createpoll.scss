@@ -1,0 +1,45 @@
+section#createPoll {
+  padding: 20px;
+  text-align: center;
+
+  h1 {
+    color: color(primary);
+    font-size: 40px;
+  }
+
+  form {
+    label {
+      text-align: left;
+      padding-top: 10px;
+      display: block;
+      color: color(primary);
+      font-size: 20px;
+    }
+
+    input[type=text] {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      display: block;
+      width: 100%;
+      border: 0px;
+      border-bottom: 1px solid color(primary);
+      font-size: 16px;
+    }
+
+    button {
+      display: block;
+      cursor: pointer;
+      background-color: color(primary);
+      color: white;
+      border: 1px solid color(primary);
+      padding: 8px 16px;
+      font-size: 18px;
+      transition: 0.3s all;
+    }
+
+    button:hover {
+      color: color(primary);
+      background-color: white;
+    }
+  }
+}

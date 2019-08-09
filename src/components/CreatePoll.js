@@ -7,10 +7,11 @@ class CreatePoll extends React.Component {
 
     this.state = {
       question: "",
+      numOptions: 1,
       options: [
         {
-          "content": "yes",
-          "votes": 1
+          "content": "",
+          "votes": 0
         }
       ],
     };
@@ -36,23 +37,37 @@ class CreatePoll extends React.Component {
 
   addOption = (e) => {
     e.preventDefault();
+    this.setState({ numOptions: (this.state.numOptions + 1) })
   };
 
+
+  options = () => {
+    let allOptions = [];
+
+    for (var i = 1; i <= this.state.numOptions; i++) {
+      let newOption = (
+        <div key={i} className="option">
+          <label>Option {i}</label>
+          <input type="text" name="question" onChange={this.inputHandler} />
+        </div>
+      );
+
+      allOptions.push(newOption);
+    }
+
+    return allOptions;
+  }
+
   render() {
-    let options = this.state.options;
     return(
       <section id="createPoll">
         <h1>NEW POLL</h1>
         <form onSubmit={this.newPollHandler}>
-          <label>
-            Question
-            <input type="text" name="question" onChange={this.inputHandler} />
-          </label>
-          {options.map(option => {
-            return(
-              <input type="text" name={`option-${option.content}`} key={option.content} />
-            );
-          })}
+          <label>Question</label>
+          <input type="text" name="question" onChange={this.inputHandler} />
+          <div id="options" className="options">
+            {this.options()}
+          </div>
           <button onClick={this.addOption}>Add Option</button>
           <input type="submit" value="Submit" />
         </form>

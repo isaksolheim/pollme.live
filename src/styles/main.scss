@@ -13,5 +13,6 @@ $colors: (
   @return map-get($colors, $color-name);
 }
 
-@import './navbar.scss';
-@import './footer.scss';
+@import './_navbar.scss';
+@import './_footer.scss';
+@import './createpoll.scss';
