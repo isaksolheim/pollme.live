@@ -37,9 +37,12 @@ class CreatePoll extends React.Component {
 
   addOption = (e) => {
     e.preventDefault();
-    this.setState({ numOptions: (this.state.numOptions + 1) })
+    this.setState({ numOptions: (this.state.numOptions + 1) });
   };
 
+  deleteOption = () => {
+    this.setState({ numOptions: this.state.numOptions - 1 });
+  }
 
   options = () => {
     let allOptions = [];
@@ -47,7 +50,10 @@ class CreatePoll extends React.Component {
     for (var i = 1; i <= this.state.numOptions; i++) {
       let newOption = (
         <div key={i} className="option">
-          <label>Option {i}</label>
+          <label onClick={this.deleteOption}>
+            Option {i}
+            {i === this.state.numOptions ? <i onClick={this.deleteOption} className="far fa-trash-alt" /> : null}
+          </label>
           <input type="text" name="question" onChange={this.inputHandler} />
         </div>
       );
