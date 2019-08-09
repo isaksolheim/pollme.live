@@ -26,7 +26,7 @@ section#createPoll {
       font-size: 16px;
     }
 
-    button {
+    button, input[type=submit] {
       display: block;
       cursor: pointer;
       background-color: color(primary);
@@ -35,11 +35,20 @@ section#createPoll {
       padding: 8px 16px;
       font-size: 18px;
       transition: 0.3s all;
+      margin-top: 10px;
     }
 
-    button:hover {
+    button:hover, input[type=submit]:hover {
       color: color(primary);
       background-color: white;
+    }
+
+    button {
+      float: left;
+    }
+
+    input[type=submit] {
+      float: right;
     }
   }
 }
