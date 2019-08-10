@@ -6,6 +6,7 @@ class CreatePoll extends React.Component {
     super(props);
 
     this.state = {
+      id: "",
       question: "",
       numOptions: 1,
       options: [
@@ -20,6 +21,7 @@ class CreatePoll extends React.Component {
   newPollHandler = (e) => {
     e.preventDefault();
 
+    // population options array
     let options = [];
     for (var i = 0; i < document.getElementById('options').children.length; i++) {
      let option = {
@@ -29,13 +31,15 @@ class CreatePoll extends React.Component {
       options.push(option);
     }
 
+    // the poll object
     var poll = {
       "question": this.state.question,
       "options": options 
     };
 
+    // posting the new poll
     axios.post('http://localhost:5000/create', poll)
-      .then(res => console.log(res.data));
+      .then(res => this.setState({ id: res.data })); 
   }
 
   inputHandler = (e) => {
@@ -74,20 +78,30 @@ class CreatePoll extends React.Component {
   }
 
   render() {
-    return(
-      <section id="createPoll">
-        <h1>NEW POLL</h1>
-        <form onSubmit={this.newPollHandler}>
-          <label>Question</label>
-          <input type="text" name="question" onChange={this.inputHandler} />
-          <div id="options" className="options">
-            {this.options()}
-          </div>
-          <button onClick={this.addOption}>Add Option</button>
-          <input type="submit" value="Create Poll" />
-        </form>
-      </section>
-    );
+    if (this.state.id === "") {
+      return(
+        <section id="createPoll">
+          <h1>NEW POLL</h1>
+          <form onSubmit={this.newPollHandler}>
+            <label>Question</label>
+            <input type="text" name="question" onChange={this.inputHandler} />
+            <div id="options" className="options">
+              {this.options()}
+            </div>
+            <button onClick={this.addOption}>Add Option</button>
+            <input type="submit" value="Create Poll" />
+          </form>
+        </section>
+      );
+    } else {
+      return(
+        <section id="sharePoll">
+          <h1>Your poll is now <b>live</b>!</h1>
+          <a href={`localhost:3000/${this.state.id}`}>pollme.live/{this.state.id}</a>
+          <a href="https://isaks.io" className="button">Share</a>
+        </section>
+      );
+    }
   }
 }
 

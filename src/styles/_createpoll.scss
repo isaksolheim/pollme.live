@@ -14,6 +14,10 @@ section#createPoll {
       display: block;
       color: color(primary);
       font-size: 20px;
+
+      i {
+        cursor: pointer;
+      }
     }
 
     input[type=text] {
