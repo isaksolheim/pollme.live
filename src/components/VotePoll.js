@@ -8,6 +8,7 @@ class VotePoll extends React.Component {
     this.state = {
       post: {},
       isLoaded: false,
+      vote: null,
     };
   }
 
@@ -20,6 +21,16 @@ class VotePoll extends React.Component {
           isLoaded: true,
         })
       });
+  }
+
+  checkHandler = (e) => {
+    this.setState({ vote: e.target.value });
+  }
+
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    console.log('Vote', this.state.vote);
   }
   render() {
     let {isLoaded} = this.state;
@@ -35,9 +46,12 @@ class VotePoll extends React.Component {
           <h1>{post.question}</h1>
           {post.options.map(option => {
             return(
-              <h2 key={option.content}>{option.content}</h2>
+              <h2 key={option.content}>
+                {option.content}<input onChange={this.checkHandler} value={option.content} type="checkbox" />
+              </h2>
             );
           })}
+          <input onClick={this.submitHandler} className="button" type="submit" value="Vote" />
         </section>
       );
     }
