@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class CreatePoll extends React.Component {
   constructor(props) {
@@ -97,7 +98,7 @@ class CreatePoll extends React.Component {
       return(
         <section id="sharePoll">
           <h1>Your poll is now <b>live</b>!</h1>
-          <a href={`localhost:3000/${this.state.id}`}>pollme.live/{this.state.id}</a>
+          <Link to={`/${this.state.id}`}>pollme.live/{this.state.id}</Link>
           <a href="https://isaks.io" className="button">Share</a>
         </section>
       );
