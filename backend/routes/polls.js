@@ -27,4 +27,16 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').post((req, res) => {
+  Poll.findById(req.params.id)
+    .then(poll => {
+      poll.options = req.body.options;
+
+      poll.save()
+        .then(() => res.json('Vote registered'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+
 module.exports = router;

@@ -9,6 +9,7 @@ class VotePoll extends React.Component {
       post: {},
       isLoaded: false,
       vote: null,
+      hasVoted: false,
     };
   }
 
@@ -30,16 +31,28 @@ class VotePoll extends React.Component {
   submitHandler = (e) => {
     e.preventDefault();
 
-    console.log('Vote', this.state.vote);
+    let id = this.props.match.params.id;
+
+    let poll = this.state.post;
+    let vote = this.state.vote;
+    for (var i = 0; i < poll.options.length; i++) {
+      if (vote === poll.options[i].content) {
+        poll.options[i].votes = poll.options[i].votes + 1;
+        break;
+      }
+    }
+
+    axios.post(`http://localhost:5000/${id}`, poll);
+    this.setState({ hasVoted: true });
   }
   render() {
-    let {isLoaded} = this.state;
+    let {isLoaded, hasVoted} = this.state;
 
     if (!isLoaded) {
       return(
         <p>Loading...</p>
       );
-    } else {
+    } else if (!hasVoted) {
       let {post} = this.state;
       return(
         <section id="votePoll">
@@ -52,6 +65,14 @@ class VotePoll extends React.Component {
             );
           })}
           <input onClick={this.submitHandler} className="button" type="submit" value="Vote" />
+        </section>
+      );
+    } else {
+      let {post} = this.state;
+      return(
+        <section id="votePoll">
+          <h1>{post.question}</h1>
+          <p>Thanks for voting</p>
         </section>
       );
     }
