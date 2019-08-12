@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { BarChart, Bar, XAxis, YAxis } from 'recharts';
 
 class VotePoll extends React.Component {
   constructor(props) {
@@ -69,10 +70,21 @@ class VotePoll extends React.Component {
       );
     } else {
       let {post} = this.state;
+      let options = post.options;
+      let data = [];
+
+      for (var i = 0; i < options.length; i++) {
+        let dataPoint = { name: options[i].content, uv: options[i].votes, pv: 2400, amt: 2400 };
+        data.push(dataPoint);
+      }
       return(
         <section id="votePoll">
           <h1>{post.question}</h1>
-          <p>Thanks for voting</p>
+          <BarChart width={300} height={300} data={data}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Bar type="monotone" dataKey="uv" barSize={30} fill="#8884d8" />
+          </BarChart>
         </section>
       );
     }
