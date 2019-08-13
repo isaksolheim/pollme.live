@@ -116,7 +116,7 @@ class VotePoll extends React.Component {
             layout="vertical"
             margin={{ right: 30, left: 50 }}
           >
-            <XAxis type="number" />
+            <XAxis type="number" allowDecimals={false} />
             <YAxis dataKey="name" type="category"/>
             <Tooltip />
             <Bar type="monotone" dataKey="uv" barSize={30} fill="#8884d8" label={{ position: 'right' }} />
