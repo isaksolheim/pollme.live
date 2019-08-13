@@ -13,8 +13,14 @@ $colors: (
   @return map-get($colors, $color-name);
 }
 
+@mixin desktop {
+  @media (min-width: 800px) {
+    @content;
+  }
+}
+
 @import './_navbar.scss';
 @import './_footer.scss';
-@import './createpoll.scss';
-@import './sharePoll.scss';
-@import './votePoll.scss';
+@import './_createpoll.scss';
+@import './_sharePoll.scss';
+@import './_votePoll.scss';
