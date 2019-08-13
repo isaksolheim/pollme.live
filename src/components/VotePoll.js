@@ -11,10 +11,17 @@ class VotePoll extends React.Component {
       isLoaded: false,
       vote: null,
       hasVoted: false,
+      windowWidth: window.innerWidth - 40,
     };
   }
 
+  handleResize() {
+    let width = window.innerWidth - 40 >= 1000 ? 1000 : window.innerWidth - 40;
+    this.setState({ windowWidth: width });
+  }
+
   componentDidMount() {
+    window.addEventListener('resize', this.handleResize.bind(this));
     let id = this.props.match.params.id;
     axios.get('http://localhost:5000/')
       .then(res => {
@@ -46,6 +53,7 @@ class VotePoll extends React.Component {
     axios.post(`http://localhost:5000/${id}`, poll);
     this.setState({ hasVoted: true });
   }
+
   render() {
     let {isLoaded, hasVoted} = this.state;
 
@@ -73,16 +81,27 @@ class VotePoll extends React.Component {
       let options = post.options;
       let data = [];
 
+      // populating data array
       for (var i = 0; i < options.length; i++) {
         let dataPoint = { name: options[i].content, uv: options[i].votes, pv: 2400, amt: 2400 };
         data.push(dataPoint);
       }
+
+      //
+      let pollStyle = {
+        margin: '0 auto',
+        backgroundColor: '#f1f1f1',
+      };
+
+      let width = this.state.windowWidth;
+      let height = 100 * data.length;
+
       return(
         <section id="votePoll">
           <h1>{post.question}</h1>
-          <BarChart width={300} height={300} data={data}>
-            <XAxis dataKey="name" />
-            <YAxis />
+          <BarChart width={width} height={height} style={pollStyle} data={data} layout="vertical">
+            <XAxis type="number" />
+            <YAxis dataKey="name" type="category"/>
             <Bar type="monotone" dataKey="uv" barSize={30} fill="#8884d8" />
           </BarChart>
         </section>
