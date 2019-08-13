@@ -14,17 +14,26 @@ Work in progress
 * [Recharts](http://recharts.org/)
 
 ## Installation and Usage
-# Example:
-Clone this repository. You will need `node`, `nodemon` and `npm` installed globally on your machine.
-Installation:
-`npm install`
-To Start MongoDB Server:
-`cd backend/`
-`nodemon server`
-To Start React App:
-`npm start`
-To Visit App:
-`localhost:3000`
+#### Example:
+Clone this repository. You will need `node`, `nodemon` and `npm` installed globally on your machine.  
+
+Installation:  
+
+`npm install`  
+
+To Start MongoDB Server:  
+
+`cd backend/`  
+
+`nodemon server`  
+
+To Start React App:  
+
+`npm start`  
+
+To Visit App:  
+
+`localhost:3000`  
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
