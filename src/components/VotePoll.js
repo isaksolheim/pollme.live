@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 
 class VotePoll extends React.Component {
   constructor(props) {
@@ -18,6 +18,12 @@ class VotePoll extends React.Component {
   handleResize() {
     let width = window.innerWidth - 40 >= 1000 ? 1000 : window.innerWidth - 40;
     this.setState({ windowWidth: width });
+  }
+
+  handleCopy = () => {
+    let url = document.getElementById('url');
+    url.select();
+    document.execCommand('copy');
   }
 
   componentDidMount() {
@@ -68,9 +74,12 @@ class VotePoll extends React.Component {
           <h1>{post.question}</h1>
           {post.options.map(option => {
             return(
-              <h2 key={option.content}>
-                {option.content}<input onChange={this.checkHandler} value={option.content} type="checkbox" />
-              </h2>
+              <div key={option.content}>
+                <label class="container">{option.content}
+                  <input type="checkbox" onChange={this.checkHandler} value={option.content} />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
             );
           })}
           <input onClick={this.submitHandler} className="button" type="submit" value="Vote" />
@@ -94,16 +103,32 @@ class VotePoll extends React.Component {
       };
 
       let width = this.state.windowWidth;
-      let height = 100 * data.length;
+      let height = 120 * data.length;
 
       return(
         <section id="votePoll">
           <h1>{post.question}</h1>
-          <BarChart width={width} height={height} style={pollStyle} data={data} layout="vertical">
+          <BarChart 
+            width={width} 
+            height={height} 
+            style={pollStyle} 
+            data={data} 
+            layout="vertical"
+            margin={{ right: 30, left: 50 }}
+          >
             <XAxis type="number" />
             <YAxis dataKey="name" type="category"/>
-            <Bar type="monotone" dataKey="uv" barSize={30} fill="#8884d8" />
+            <Tooltip />
+            <Bar type="monotone" dataKey="uv" barSize={30} fill="#8884d8" label={{ position: 'right' }} />
           </BarChart>
+          <h2>Share</h2>
+
+          <input 
+            id="url" 
+            readOnly={true} 
+            type="text" 
+            value={`https://www.pollme.live/${this.props.match.params.id}`} />
+          <button onClick={this.handleCopy}>Copy</button>
         </section>
       );
     }
