@@ -75,10 +75,10 @@ class VotePoll extends React.Component {
           {post.options.map(option => {
             return(
               <div key={option.content}>
-                <label class="container">
+                <label className="container">
                   <p>{option.content}</p>
                   <input type="checkbox" onChange={this.checkHandler} value={option.content} />
-                  <span class="checkmark"></span>
+                  <span className="checkmark"></span>
                 </label>
               </div>
             );
